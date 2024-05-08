@@ -1,0 +1,37 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: developer-hub-app-config
+  namespace: devhub
+data:
+  app-config-rhdh.yaml: |
+    app:
+      title: Red Hat Developer Hub by Derek
+      baseUrl: https://backstage-developer-hub-devhub.apps.rosa-kxnrp.klca.p1.openshiftapps.com/
+    integrations:
+      github:
+        - host: github.com
+          token: "${GITHUB_ACCESS_TOKEN}"
+    auth:
+      allowGuestAccess: true
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: "${GITHUB_CLIENT_ID}"
+            clientSecret: "${GITHUB_CLIENT_SECRET}"
+    enabled:
+      github: true
+    backend:
+      auth:
+        keys:
+          - secret: "${BACKEND_SECRET}"
+      baseUrl: https://backstage-developer-hub-devhub.apps.rosa-kxnrp.klca.p1.openshiftapps.com/
+      cors:
+        origin: https://backstage-developer-hub-devhub.apps.rosa-kxnrp.klca.p1.openshiftapps.com/
+    permission:
+      enabled: true
+      rbac:
+        admin:
+          users:
+            - name: user:default/derekwaters
